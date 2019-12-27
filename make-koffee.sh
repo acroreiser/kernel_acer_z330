@@ -69,7 +69,7 @@ make_config()
 
 build_kernel()
 {
-	make ARCH=arm KBUILD_BUILD_VERSION=$BUILD_NUMBER $JOBS KBUILD_BUILD_USER=$USER CROSS_COMPILE=$TOOLCHAIN zImage
+	make ARCH=arm KBUILD_BUILD_VERSION=$BUILD_NUMBER $JOBS KBUILD_BUILD_USER=$USER CROSS_COMPILE=$TOOLCHAIN zImage-dtb
 	if [ $? -eq 0 ]; then
 		return 0
 	else
@@ -104,7 +104,7 @@ make_flashable()
 	find . -name placeholder -delete
 
 	# copy kernel image
-	cp $BUILD_PATH/arch/arm/boot/zImage $REPACK_PATH/zImage
+	cp $BUILD_PATH/arch/arm/boot/zImage-dtb $REPACK_PATH/zImage-dtb
 
 	if [ "$SKIP_MODULES" = "false" ]; then
 	{
@@ -203,14 +203,6 @@ then
 		exit 1 
 	fi
 	DEFCONFIG=".config"
-fi
-
-if [ "$DEFCONFIG" == "lineageos_i9300_defconfig" ]; then
-	DEVICE="m0"
-fi
- 
-if [ "$DEFCONFIG" == "lineageos_n7100_defconfig" ]; then
-	DEVICE="t03g"
 fi
 
 if [ -z $TOOLCHAIN ]; then

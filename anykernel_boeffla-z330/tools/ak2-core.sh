@@ -107,8 +107,8 @@ write_boot()
 		secondoff="--second_offset $secondoff";
 	fi;
 
-	if [ -f /tmp/anykernel/zImage ]; then
-		kernel=/tmp/anykernel/zImage;
+	if [ -f /tmp/anykernel/zImage-dtb ]; then
+		kernel=/tmp/anykernel/zImage-dtb;
 	else
 		kernel=`ls *-zImage`;
 		kernel=$split_img/$kernel;
